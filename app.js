@@ -1,103 +1,56 @@
-const asignaturas = {
-  // SEMESTRE 1
-  "Anatomía Humana Normal y Embriología": { semestre: 1, prerrequisitos: [] },
-  "Biología Celular": { semestre: 1, prerrequisitos: [] },
-  "Física Aplicada": { semestre: 1, prerrequisitos: [] },
-  "Introducción a la Odontología": { semestre: 1, prerrequisitos: [] },
-  "Habilidades Comunicativas": { semestre: 1, prerrequisitos: [] },
+const asignaturas = { "Anatomía Humana Normal y Embriología": { semestre: 1, prerrequisitos: [] }, "Biología Celular": { semestre: 1, prerrequisitos: [] }, "Física Aplicada": { semestre: 1, prerrequisitos: [] }, "Introducción a la Odontología": { semestre: 1, prerrequisitos: [] }, "Habilidades Comunicativas": { semestre: 1, prerrequisitos: [] },
 
-  // SEMESTRE 2
-  "Anatomía Aplicada": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] },
-  "Química General e Inorgánica": { semestre: 2, prerrequisitos: [] },
-  "Genética Molecular Humana": { semestre: 2, prerrequisitos: ["Biología Celular"] },
-  "Histología General": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] },
-  "Introducción a la Clínica": { semestre: 2, prerrequisitos: ["Introducción a la Odontología"] },
-  "Inglés I": { semestre: 2, prerrequisitos: [] },
+"Anatomía Aplicada": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] }, "Química General e Inorgánica": { semestre: 2, prerrequisitos: [] }, "Genética Molecular Humana": { semestre: 2, prerrequisitos: ["Biología Celular"] }, "Histología General": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] }, "Introducción a la Clínica": { semestre: 2, prerrequisitos: ["Introducción a la Odontología"] }, "Inglés I": { semestre: 2, prerrequisitos: [] },
 
-  // SEMESTRE 3
-  "Bioquímica General": { semestre: 3, prerrequisitos: ["Química General e Inorgánica", "Biología Celular"] },
-  "Microbiología General": { semestre: 3, prerrequisitos: ["Histología General"] },
-  "Patología General I": { semestre: 3, prerrequisitos: ["Histología General", "Anatomía Aplicada"] },
-  "Histología Oral": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
-  "Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
-  "Laboratorio de Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
-  "Inglés II": { semestre: 3, prerrequisitos: ["Inglés I"] },
+"Bioquímica General": { semestre: 3, prerrequisitos: ["Química General e Inorgánica", "Biología Celular"] }, "Microbiología General": { semestre: 3, prerrequisitos: ["Histología General"] }, "Patología General I": { semestre: 3, prerrequisitos: ["Histología General", "Anatomía Aplicada"] }, "Histología Oral": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] }, "Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] }, "Laboratorio de Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] }, "Inglés II": { semestre: 3, prerrequisitos: ["Inglés I"] },
 
-  // SEMESTRE 4
-  "Bioquímica Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Histología Oral"] },
-  "Microbiología Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Microbiología General"] },
-  "Patología General II": { semestre: 4, prerrequisitos: ["Patología General I"] },
-  "Promoción y Educación en Salud": { semestre: 4, prerrequisitos: ["Introducción a la Clínica"] },
-  "Razonamiento Científico y Tecnologías": { semestre: 4, prerrequisitos: ["Habilidades Comunicativas"] },
-  "Inglés III": { semestre: 4, prerrequisitos: ["Inglés II"] },
-  "Biomateriales Dentales": { semestre: 4, prerrequisitos: ["Física Aplicada", "Anatomía Aplicada", "Química General e Inorgánica"] },
+"Bioquímica Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Histología Oral"] }, "Microbiología Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Microbiología General"] }, "Patología General II": { semestre: 4, prerrequisitos: ["Patología General I"] }, "Promoción y Educación en Salud": { semestre: 4, prerrequisitos: ["Introducción a la Clínica"] }, "Razonamiento Científico y Tecnologías": { semestre: 4, prerrequisitos: ["Habilidades Comunicativas"] }, "Inglés III": { semestre: 4, prerrequisitos: ["Inglés II"] }, "Biomateriales Dentales": { semestre: 4, prerrequisitos: ["Física Aplicada", "Anatomía Aplicada", "Química General e Inorgánica"] },
 
-  // SEMESTRE 5
-  "Farmacología I": { semestre: 5, prerrequisitos: ["Bioquímica Oral", "Microbiología Oral"] },
-  "Inglés IV": { semestre: 5, prerrequisitos: ["Inglés III"] },
+"Farmacología I": { semestre: 5, prerrequisitos: ["Bioquímica Oral", "Microbiología Oral"] }, "Inglés IV": { semestre: 5, prerrequisitos: ["Inglés III"] },
 
-  // SEMESTRE 6
-  "Farmacología II": { semestre: 6, prerrequisitos: ["Farmacología I"] },
-  "Cariología": { semestre: 6, prerrequisitos: ["Microbiología Oral", "Farmacología I", "Inglés IV", "Promoción y Educación en Salud"] },
-  "Preclínico Integrado": { semestre: 6, prerrequisitos: ["Biomateriales Dentales", "Fisiología Oral y Oclusión"] },
+"Farmacología II": { semestre: 6, prerrequisitos: ["Farmacología I"] }, "Cariología": { semestre: 6, prerrequisitos: ["Microbiología Oral", "Farmacología I"] }, "Preclínico Integrado": { semestre: 6, prerrequisitos: ["Biomateriales Dentales", "Fisiología Oral y Oclusión"] },
 
-  // SEMESTRE 7
-  "Patología Dentomaxilar": { semestre: 7, prerrequisitos: ["Patología General II", "Microbiología Oral"] },
-  "Imagenología": { semestre: 7, prerrequisitos: ["Patología Dentomaxilar"] },
-  "Cirugía Bucal Básica": { semestre: 7, prerrequisitos: ["Microbiología Oral", "Patología Dentomaxilar"] },
-  "Fisiología Oral y Oclusión": { semestre: 7, prerrequisitos: ["Biomateriales Dentales"] },
+"Patología Dentomaxilar": { semestre: 7, prerrequisitos: ["Patología General II", "Microbiología Oral"] }, "Imagenología": { semestre: 7, prerrequisitos: ["Patología Dentomaxilar"] }, "Cirugía Bucal Básica": { semestre: 7, prerrequisitos: ["Microbiología Oral", "Patología Dentomaxilar"] }, "Fisiología Oral y Oclusión": { semestre: 7, prerrequisitos: ["Biomateriales Dentales"] },
 
-  // SEMESTRE 8
-  "Salud Pública I": { semestre: 8, prerrequisitos: ["Cariología"] },
-  "Pensamiento Crítico": { semestre: 8, prerrequisitos: ["Razonamiento Científico y Tecnologías"] },
+"Salud Pública I": { semestre: 8, prerrequisitos: ["Cariología"] }, "Pensamiento Crítico": { semestre: 8, prerrequisitos: ["Razonamiento Científico y Tecnologías"] }, };
 
-  // SEMESTRE 9
-  "Salud Pública II": { semestre: 9, prerrequisitos: ["Salud Pública I", "Patología Dentomaxilar"] },
-  "Cirugía Dentomaxilar": { semestre: 9, prerrequisitos: ["Farmacología II", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica"] },
-  "Odontología Restauradora": { semestre: 9, prerrequisitos: ["Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado", "Biomateriales Dentales"] },
-  "Prótesis Dentomaxilar": { semestre: 9, prerrequisitos: ["Imagenología", "Cirugía Bucal Básica", "Fisiología Oral y Oclusión", "Preclínico Integrado"] },
-  "Endodoncia": { semestre: 9, prerrequisitos: ["Farmacología II", "Cariología", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado"] },
-  "Periodoncia Clínica": { semestre: 9, prerrequisitos: ["Farmacología II", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado"] },
-  "Patología Maxilofacial": { semestre: 9, prerrequisitos: ["Patología Dentomaxilar", "Imagenología"] },
+let estado = JSON.parse(localStorage.getItem("estadoAsignaturas")) || {};
 
-  // SEMESTRE 10
-  "Metodología de la Investigación": { semestre: 10, prerrequisitos: ["Salud Pública II"] },
-  "Medicina Oral": { semestre: 10, prerrequisitos: ["Patología Maxilofacial"] },
-  "Ética en la Práctica Odontológica": { semestre: 10, prerrequisitos: ["Salud Pública II"] },
+function puedeDesbloquear(nombre) { const datos = asignaturas[nombre]; return (datos.prerrequisitos || []).every(pr => estado[pr]); }
 
-  // SEMESTRE 11
-  "Internado Clínico": { semestre: 11, prerrequisitos: [
-    "Cirugía Dentomaxilar",
-    "Odontología Restauradora",
-    "Prótesis Dentomaxilar",
-    "Endodoncia",
-    "Periodoncia Clínica",
-    "Patología Maxilofacial",
-    "Salud Pública II",
-    "Metodología de la Investigación",
-    "Medicina Oral",
-    "Ética en la Práctica Odontológica"
-  ] },
-  "Proyecto Integrado de Investigación": { semestre: 11, prerrequisitos: [
-    "Cirugía Dentomaxilar",
-    "Odontología Restauradora",
-    "Prótesis Dentomaxilar",
-    "Endodoncia",
-    "Periodoncia Clínica",
-    "Patología Maxilofacial",
-    "Salud Pública II",
-    "Metodología de la Investigación",
-    "Medicina Oral",
-    "Ética en la Práctica Odontológica"
-  ] },
+function render() { const malla = document.getElementById("malla"); malla.innerHTML = "";
 
-  // SEMESTRE 12 (ejemplo, reemplaza con lo que corresponda)
-  "Asignatura 12A": { semestre: 12, prerrequisitos: ["Internado Clínico"] },
-  "Asignatura 12B": { semestre: 12, prerrequisitos: ["Proyecto Integrado de Investigación"] },
-};
+for (let i = 1; i <= 12; i++) { const col = document.createElement("div"); col.className = "semestre"; col.innerHTML = <h3>${i}º Semestre</h3>;
 
-let estadoAsignaturas = JSON.parse(localStorage.getItem("estadoAsignaturas")) || {};
+for (const [nombre, datos] of Object.entries(asignaturas)) {
+  if (datos.semestre === i) {
+    const btn = document.createElement("button");
+    btn.textContent = nombre;
+    btn.className = "ramo";
 
-function puedeDesbloquear(nombre) {
-  const datos = asignaturas[nombre];
-  return (datos.prerrequisitos || []).every(pr => estadoAsignaturas[pr]);
+    const puede = puedeDesbloquear(nombre);
+    if (!puede && !estado[nombre]) {
+      btn.classList.add("locked");
+      btn.disabled = true;
+    }
+
+    if (estado[nombre]) {
+      btn.classList.add("completado");
+    }
+
+    btn.addEventListener("click", () => {
+      estado[nombre] = !estado[nombre];
+      localStorage.setItem("estadoAsignaturas", JSON.stringify(estado));
+      render();
+    });
+
+    col.appendChild(btn);
+  }
+}
+
+malla.appendChild(col);
+
+} }
+
+document.addEventListener("DOMContentLoaded", render);
+
