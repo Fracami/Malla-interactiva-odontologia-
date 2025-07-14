@@ -51,3 +51,10 @@ h1 {
   color: #aaa;
   cursor: not-allowed;
 }
+.ramo.active {
+  background-color: #c71585; /* color rosado más fuerte */
+  color: white;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3); /* efecto hundido */
+  transform: translateY(2px); /* parece que se hunde */
+  border-color: #800040;
+}
