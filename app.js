@@ -1,94 +1,126 @@
-const ramos = [ // PRIMER AÑO { codigo: "MORF100", nombre: "Anatomía Humana Normal y Embriología", semestre: 1 }, { codigo: "BIOL130", nombre: "Biología Celular", semestre: 1 }, { codigo: "CFIS100", nombre: "Física Aplicada", semestre: 1 }, { codigo: "ODOT101", nombre: "Introducción a la Odontología", semestre: 1 }, { codigo: "CEGHC11", nombre: "Habilidades Comunicativas", semestre: 1 },
+document.addEventListener("DOMContentLoaded", () => {
+  const malla = document.getElementById("malla");
 
-{ codigo: "MORF200", nombre: "Anatomía Aplicada", semestre: 2, prereq: ["MORF100", "BIOL130"] }, { codigo: "QUIM118", nombre: "Química General e Inorgánica", semestre: 2 }, { codigo: "BIOL146", nombre: "Genética Molecular y Histología General", semestre: 2, prereq: ["BIOL130", "MORF100"] }, { codigo: "ODOT201", nombre: "Introducción a la Clínica", semestre: 2, prereq: ["ODOT101"] }, { codigo: "ING119", nombre: "Inglés I", semestre: 2 },
+  const asignaturas = {
+    // 1º semestre
+    "Anatomía Humana Normal y Embriología": { semestre: 1, prerrequisitos: [] },
+    "Biología Celular": { semestre: 1, prerrequisitos: [] },
+    "Física Aplicada": { semestre: 1, prerrequisitos: [] },
+    "Introducción a la Odontología": { semestre: 1, prerrequisitos: [] },
+    "Habilidades Comunicativas": { semestre: 1, prerrequisitos: [] },
 
-// SEGUNDO AÑO { codigo: "BIOL164", nombre: "Bioquímica General", semestre: 3, prereq: ["QUIM118", "BIOL130"] }, { codigo: "BIOL252", nombre: "Microbiología General", semestre: 3, prereq: ["BIOL146"] }, { codigo: "ODOT302", nombre: "Patología General I", semestre: 3, prereq: ["BIOL146", "MORF201", "MORF200"] }, { codigo: "MORF201", nombre: "Histología Oral", semestre: 3, prereq: ["MORF200", "BIOL146"] }, { codigo: "BIOL172", nombre: "Fisiología", semestre: 3, prereq: ["MORF200", "MORF201"] }, { codigo: "BIOL173", nombre: "Lab. de Fisiología", semestre: 3, prereq: ["MORF200", "MORF201"], coreq: ["BIOL172"] }, { codigo: "ING129", nombre: "Inglés II", semestre: 3, prereq: ["ING119"] },
+    // 2º semestre
+    "Anatomía Aplicada": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] },
+    "Química General e Inorgánica": { semestre: 2, prerrequisitos: [] },
+    "Genética Molecular Humana": { semestre: 2, prerrequisitos: ["Biología Celular"] },
+    "Histología General": { semestre: 2, prerrequisitos: ["Anatomía Humana Normal y Embriología", "Biología Celular"] },
+    "Introducción a la Clínica": { semestre: 2, prerrequisitos: ["Introducción a la Odontología"] },
+    "Inglés I": { semestre: 2, prerrequisitos: [] },
 
-{ codigo: "ODOT401", nombre: "Bioquímica Oral", semestre: 4, prereq: ["BIOL164", "MORF201"] }, { codigo: "BIOL254", nombre: "Microbiología Oral", semestre: 4, prereq: ["BIOL252", "BIOL164"] }, { codigo: "ODOT402", nombre: "Patología General II", semestre: 4, prereq: ["ODOT302", "BIOL172", "BIOL173"] }, { codigo: "ODOT403", nombre: "Promoción y Educación en Salud", semestre: 4, prereq: ["ODOT201"] }, { codigo: "CEGCT12", nombre: "Razonamiento Científico y TICs", semestre: 4, prereq: ["CEGHC11"] }, { codigo: "ING239", nombre: "Inglés III", semestre: 4, prereq: ["ING129"] }, { codigo: "ODOT301", nombre: "Biomateriales Dentales", semestre: 4, prereq: ["CFIS100", "MORF200", "QUIM118"] },
+    // 3º semestre
+    "Bioquímica General": { semestre: 3, prerrequisitos: ["Química General e Inorgánica", "Biología Celular"] },
+    "Microbiología General": { semestre: 3, prerrequisitos: ["Histología General"] },
+    "Patología General I": { semestre: 3, prerrequisitos: ["Histología General", "Anatomía Aplicada"] },
+    "Histología Oral": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
+    "Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
+    "Laboratorio de Fisiología": { semestre: 3, prerrequisitos: ["Anatomía Aplicada", "Histología General"] },
+    "Inglés II": { semestre: 3, prerrequisitos: ["Inglés I"] },
 
-// TERCER AÑO { codigo: "FARM161", nombre: "Farmacología I", semestre: 5, prereq: ["ODOT401", "ODOT402"] }, { codigo: "ING249", nombre: "Inglés IV", semestre: 5, prereq: ["ING239"] },
+    // 4º semestre
+    "Bioquímica Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Histología Oral"] },
+    "Microbiología Oral": { semestre: 4, prerrequisitos: ["Bioquímica General", "Microbiología General"] },
+    "Patología General II": { semestre: 4, prerrequisitos: ["Patología General I"] },
+    "Promoción y Educación en Salud": { semestre: 4, prerrequisitos: ["Introducción a la Clínica"] },
+    "Razonamiento Científico y Tecnologías": { semestre: 4, prerrequisitos: ["Habilidades Comunicativas"] },
+    "Inglés III": { semestre: 4, prerrequisitos: ["Inglés II"] },
+    "Biomateriales Dentales": { semestre: 4, prerrequisitos: ["Física Aplicada", "Anatomía Aplicada", "Química General e Inorgánica"] },
 
-{ codigo: "FARM162", nombre: "Farmacología II", semestre: 6, prereq: ["FARM161"] }, { codigo: "ODOT602", nombre: "Cariología", semestre: 6, prereq: ["BIOL254", "FARM161", "ODOT403", "ODOT502", "ODOT505"] }, { codigo: "ODOT502", nombre: "Imagenología", semestre: 6, prereq: ["ODOT402"], coreq: ["ODOT501"] }, { codigo: "ODOT505", nombre: "Preclínico Integrado", semestre: 6, prereq: ["ODOT301", "ODOT504"] },
+    // 5º semestre
+    "Farmacología I": { semestre: 5, prerrequisitos: ["Bioquímica Oral", "Microbiología Oral"] },
+    "Inglés IV": { semestre: 5, prerrequisitos: ["Inglés III"] },
 
-{ codigo: "ODOT501", nombre: "Patología Dentomaxilar", semestre: 6, prereq: ["ODOT402", "BIOL254"] }, { codigo: "ODOT503", nombre: "Cirugía Bucal Básica", semestre: 6, prereq: ["BIOL254", "ODOT402"] }, { codigo: "ODOT504", nombre: "Fisiología Oral y Oclusión", semestre: 6, prereq: ["ODOT301"] },
+    // 6º semestre
+    "Farmacología II": { semestre: 6, prerrequisitos: ["Farmacología I"] },
+    "Cariología": { semestre: 6, prerrequisitos: ["Microbiología Oral", "Farmacología I"] },
+    "Preclínico Integrado": { semestre: 6, prerrequisitos: ["Biomateriales Dentales", "Fisiología Oral y Oclusión"] },
 
-// CUARTO AÑO { codigo: "SPAB110", nombre: "Salud Pública I", semestre: 7, prereq: ["ODOT602"] }, { codigo: "CEGPC13", nombre: "Pensamiento Crítico", semestre: 7, prereq: ["CEGCT12"] },
+    // 7º semestre
+    "Patología Dentomaxilar": { semestre: 7, prerrequisitos: ["Patología General II", "Microbiología Oral"] },
+    "Imagenología": { semestre: 7, prerrequisitos: ["Patología Dentomaxilar"] },
+    "Cirugía Bucal Básica": { semestre: 7, prerrequisitos: ["Microbiología Oral", "Patología Dentomaxilar"] },
+    "Fisiología Oral y Oclusión": { semestre: 7, prerrequisitos: ["Biomateriales Dentales"] },
 
-{ codigo: "SPAB111", nombre: "Salud Pública II", semestre: 8, prereq: ["SPAB110", "ODOT501"] },
+    // 8º semestre
+    "Salud Pública I": { semestre: 8, prerrequisitos: ["Cariología"] },
+    "Pensamiento Crítico": { semestre: 8, prerrequisitos: ["Razonamiento Científico y Tecnologías"] },
 
-{ codigo: "ODOT701", nombre: "Cirugía Dentomaxilar", semestre: 8, prereq: ["FARM162", "ODOT501", "ODOT502", "ODOT503"] }, { codigo: "ODOT702", nombre: "Odontología Restauradora", semestre: 8, prereq: ["ODOT502", "ODOT503", "ODOT505", "ODOT602"] }, { codigo: "ODOT703", nombre: "Prótesis Dentomaxilar", semestre: 8, prereq: ["ODOT502", "ODOT503", "ODOT504", "ODOT505"] }, { codigo: "ODOT704", nombre: "Endodoncia", semestre: 8, prereq: ["FARM162", "ODOT501", "ODOT502", "ODOT503", "ODOT505", "ODOT602"] }, { codigo: "ODOT705", nombre: "Periodoncia Clínica", semestre: 8, prereq: ["FARM162", "ODOT501", "ODOT502", "ODOT503", "ODOT505"] }, { codigo: "ODOT706", nombre: "Patología Maxilofacial", semestre: 8, prereq: ["ODOT501", "ODOT502"] },
+    // 9º semestre
+    "Salud Pública II": { semestre: 9, prerrequisitos: ["Salud Pública I", "Patología Dentomaxilar"] },
 
-// QUINTO AÑO { codigo: "SPAB303", nombre: "Metodología de la Investigación", semestre: 9, prereq: ["SPAB111", "ODOT702"] }, { codigo: "ODOT901", nombre: "Medicina Oral", semestre: 9, prereq: ["ODOT706"] }, { codigo: "ODOT906", nombre: "Ética en la Práctica Odontológica", semestre: 9, prereq: ["SPAB111"] },
+    // 10º semestre
+    "Cirugía Dentomaxilar": { semestre: 10, prerrequisitos: ["Farmacología II", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica"] },
+    "Odontología Restauradora": { semestre: 10, prerrequisitos: ["Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado", "Fisiología Oral y Oclusión"] },
+    "Prótesis Dentomaxilar": { semestre: 10, prerrequisitos: ["Imagenología", "Cirugía Bucal Básica", "Biomateriales Dentales", "Preclínico Integrado"] },
+    "Endodoncia": { semestre: 10, prerrequisitos: ["Farmacología II", "Cariología", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado"] },
+    "Periodoncia Clínica": { semestre: 10, prerrequisitos: ["Farmacología II", "Patología Dentomaxilar", "Imagenología", "Cirugía Bucal Básica", "Preclínico Integrado"] },
+    "Patología Maxilofacial": { semestre: 10, prerrequisitos: ["Patología Dentomaxilar", "Imagenología"] },
 
-{ codigo: "SPAB112", nombre: "Administración y Gestión en Salud", semestre: 10, prereq: ["SPAB111", "ODOT901"] }, { codigo: "ODOT1001", nombre: "Medicina Legal", semestre: 10, prereq: ["ODOT901"] }, { codigo: "CEGRS14", nombre: "Responsabilidad Social", semestre: 10, prereq: ["CEGPC13"] },
+    // 11º semestre
+    "Metodología de la Investigación": { semestre: 11, prerrequisitos: ["Salud Pública II", "Odontología Restauradora", "Medicina Oral", "Ética en la práctica Odontológica"] },
+    "Medicina Oral": { semestre: 11, prerrequisitos: ["Patología Maxilofacial", "Odontología Restauradora"] },
+    "Ética en la práctica Odontológica": { semestre: 11, prerrequisitos: ["Salud Pública II"] },
 
-{ codigo: "ODOT902", nombre: "Cirugía y Traumatología Maxilofacial", semestre: 10, prereq: ["ODOT701", "ODOT706"] }, { codigo: "ODOT903", nombre: "Clínica Integral Adulto y Odontogeriatría", semestre: 10, prereq: ["ODOT702", "ODOT703", "ODOT704", "ODOT705"] }, { codigo: "ODOT904", nombre: "Odontopediatría", semestre: 10, prereq: ["ODOT701", "ODOT702", "ODOT704"] }, { codigo: "ODOT905", nombre: "Ortodoncia y Ortopedia", semestre: 10, prereq: ["ODOT705", "ODOT904"] },
+    // 12º semestre
+    "Administración y Gestión en Salud": { semestre: 12, prerrequisitos: ["Metodología de la Investigación", "Medicina Oral"] },
+    "Medicina Legal": { semestre: 12, prerrequisitos: ["Medicina Oral"] },
+    "Responsabilidad Social": { semestre: 12, prerrequisitos: ["Pensamiento Crítico"] },
 
-// SEXTO AÑO { codigo: "ODOT1103", nombre: "Internado Clínico", semestre: 11, prereq: ["ODOT902", "ODOT903", "ODOT904", "ODOT905", "ODOT906", "SPAB112", "SPAB303", "ODOT1001", "CEGRS14"] }, { codigo: "ODOT1102", nombre: "Proyecto Integrado de Investigación", semestre: 11, prereq: ["ODOT902", "ODOT903", "ODOT904", "ODOT905", "ODOT906", "SPAB112", "SPAB303", "ODOT1001", "CEGRS14"] }, ];
+  };
 
-const mallaDiv = document.getElementById("malla");
+  let estado = JSON.parse(localStorage.getItem("estadoAsignaturas")) || {};
 
-const totalSemestres = 12;
-const semestres = Array.from({ length: totalSemestres }, (_, i) => {
-  const col = document.createElement("div");
-  col.className = "semestre";
-  col.innerHTML = `<h3>${i + 1}° Semestre</h3>`;
-  mallaDiv.appendChild(col);
-  return col;
-});
-
-const estadoRamos = {};
-
-function crearBoton(ramo) {
-  const btn = document.createElement("button");
-  btn.textContent = ramo.nombre;
-  btn.className = "ramo";
-  btn.dataset.codigo = ramo.codigo;
-
-  const requisitos = [...(ramo.prereq || []), ...(ramo.coreq || [])];
-
-  if (requisitos.length > 0) {
-    btn.classList.add("locked");
+  function puedeDesbloquear(nombre) {
+    const datos = asignaturas[nombre];
+    return (datos.prerrequisitos || []).every(pr => estado[pr]);
   }
 
-  btn.addEventListener("click", () => {
-    if (btn.classList.contains("locked")) return;
+  function render() {
+    malla.innerHTML = "";
 
-    if (btn.classList.contains("completado")) {
-      btn.classList.remove("completado");
-      estadoRamos[ramo.codigo] = false;
-    } else {
-      btn.classList.add("completado");
-      estadoRamos[ramo.codigo] = true;
-    }
+    for (let i = 1; i <= 12; i++) {
+      const col = document.createElement("div");
+      col.className = "semestre";
+      col.innerHTML = `<h3>${i}º Semestre</h3>`;
 
-    actualizarDesbloqueo();
-  });
+      for (const [nombre, datos] of Object.entries(asignaturas)) {
+        if (datos.semestre === i) {
+          const btn = document.createElement("button");
+          btn.textContent = nombre;
+          btn.className = "ramo";
 
-  return btn;
-}
+          const puede = puedeDesbloquear(nombre);
+          if (!puede && !estado[nombre]) {
+            btn.classList.add("locked");
+            btn.disabled = true;
+          }
 
-function actualizarDesbloqueo() {
-  document.querySelectorAll("button.ramo").forEach((btn) => {
-    const codigo = btn.dataset.codigo;
-    const ramo = ramos.find((r) => r.codigo === codigo);
-    const requisitos = [...(ramo.prereq || []), ...(ramo.coreq || [])];
-    const cumplidos = requisitos.every((r) => estadoRamos[r]);
+          if (estado[nombre]) {
+            btn.classList.add("completado");
+          }
 
-    if (requisitos.length > 0) {
-      if (cumplidos) {
-        btn.classList.remove("locked");
-      } else {
-        btn.classList.add("locked");
+          btn.addEventListener("click", () => {
+            estado[nombre] = !estado[nombre];
+            localStorage.setItem("estadoAsignaturas", JSON.stringify(estado));
+            render();
+          });
+
+          col.appendChild(btn);
+        }
       }
+
+      malla.appendChild(col);
     }
-  });
-}
+  }
 
-ramos.forEach((ramo) => {
-  const btn = crearBoton(ramo);
-  estadoRamos[ramo.codigo] = false;
-  semestres[ramo.semestre - 1].appendChild(btn);
+  render();
 });
-
-actualizar
