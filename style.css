@@ -1,60 +1,62 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   background-color: #fff0f5;
   margin: 0;
   padding: 20px;
 }
 
 h1 {
-  color: #c71585;
   text-align: center;
+  color: #c71585;
+  margin-bottom: 30px;
 }
 
-.contenedor-malla {
+#contenedor-malla {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 30px;
-  padding-top: 20px;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 
 .semestre-columna {
   min-width: 200px;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(199, 21, 133, 0.2);
 }
 
 .semestre-columna h2 {
   text-align: center;
-  font-size: 1rem;
-  color: #800040;
-  background-color: #ffe4ec;
-  border-radius: 6px;
-  padding: 5px;
+  color: #c71585;
+  margin-bottom: 10px;
 }
 
 .ramo {
-  background-color: #ffc0cb;
-  border: 2px solid #c71585;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid #aaa;
+  background-color: #f9b5d0; /* Rosado por defecto */
+  color: #333;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   text-align: center;
+  font-size: 14px;
 }
 
+/* Ramos bloqueados (no clickeables aún) */
 .ramo.locked {
-  background-color: #f0f0f0;
-  border-color: #aaa;
+  background-color: #ddd;
   color: #aaa;
   cursor: not-allowed;
 }
-.ramo.active {
-  background-color: #c71585; /* color rosado más fuerte */
-  color: white;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3); /* efecto hundido */
-  transform: translateY(2px); /* parece que se hunde */
-  border-color: #800040;
+
+/* Ramos completados: blanco con tachado */
+.ramo.completado {
+  background-color: white;
+  color: #777;
+  text-decoration: line-through;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
