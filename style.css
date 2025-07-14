@@ -5,18 +5,15 @@ body {
   padding: 20px;
   overflow-x: auto;
 }
-
 h1 {
   text-align: center;
   color: #c2185b;
 }
-
 #malla {
   display: flex;
   gap: 20px;
-  min-width: 2000px;
+  min-width: 2500px; /* Para que quepa todo horizontal */
 }
-
 .semestre {
   background-color: #fde0ef;
   border: 2px solid #c2185b;
@@ -26,12 +23,10 @@ h1 {
   min-height: 300px;
   box-sizing: border-box;
 }
-
 .semestre h3 {
   text-align: center;
   color: #880e4f;
 }
-
 button.ramo {
   display: block;
   margin: 8px auto;
@@ -39,19 +34,20 @@ button.ramo {
   width: 100%;
   border: none;
   border-radius: 8px;
-  background-color: #f48fb1;
+  background-color: #f48fb1; /* Rosado inicial */
   color: white;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
-
 button.ramo.locked {
   background-color: #ccc;
   cursor: not-allowed;
+  color: #666;
 }
-
 button.ramo.completado {
   background-color: white;
   color: #999;
   text-decoration: line-through;
+  cursor: pointer;
 }
