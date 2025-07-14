@@ -14,7 +14,7 @@ h1 {
 #malla {
   display: flex;
   gap: 20px;
-  min-width: 3000px;
+  min-width: 2500px;
   align-items: flex-start;
 }
 
