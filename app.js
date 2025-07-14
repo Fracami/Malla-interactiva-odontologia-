@@ -8,7 +8,7 @@ const ramos = [
 
   { codigo: "MORF200", nombre: "Anatomía Aplicada", semestre: 2, prereq: ["MORF100", "BIOL130"] },
   { codigo: "QUIM118", nombre: "Química General e Inorgánica", semestre: 2 },
-  { codigo: "BIOL146", nombre: "Genética Molecular y Histología General", semestre: 2, prereq: ["BIOL130", "MORF100"] },
+  { codigo: "BIOL146", nombre: "Genética Molecular e Histología General", semestre: 2, prereq: ["BIOL130", "MORF100"] },
   { codigo: "ODOT201", nombre: "Introducción a la Clínica", semestre: 2, prereq: ["ODOT101"] },
   { codigo: "ING119", nombre: "Inglés I", semestre: 2 },
 
@@ -18,7 +18,7 @@ const ramos = [
   { codigo: "ODOT302", nombre: "Patología General I", semestre: 3, prereq: ["BIOL146", "MORF201", "MORF200"] },
   { codigo: "MORF201", nombre: "Histología Oral", semestre: 3, prereq: ["MORF200", "BIOL146"] },
   { codigo: "BIOL172", nombre: "Fisiología", semestre: 3, prereq: ["MORF200", "MORF201"] },
-  { codigo: "BIOL173", nombre: "Laboratorio de Fisiología", semestre: 3, prereq: ["MORF200", "MORF201"], coreq: ["BIOL172"] },
+  { codigo: "BIOL173", nombre: "Laboratorio de Fisiología", semestre: 3, prereq: ["MORF200", "MORF201"] },
   { codigo: "ING129", nombre: "Inglés II", semestre: 3, prereq: ["ING119"] },
 
   { codigo: "ODOT401", nombre: "Bioquímica Oral", semestre: 4, prereq: ["BIOL164", "MORF201"] },
@@ -35,9 +35,8 @@ const ramos = [
 
   { codigo: "FARM162", nombre: "Farmacología II", semestre: 6, prereq: ["FARM161"] },
   { codigo: "ODOT602", nombre: "Cariología", semestre: 6, prereq: ["BIOL254", "FARM161", "ODOT403", "ODOT502", "ODOT505"] },
-  { codigo: "ODOT502", nombre: "Imagenología", semestre: 6, prereq: ["ODOT402"], coreq: ["ODOT501"] },
+  { codigo: "ODOT502", nombre: "Imagenología", semestre: 6, prereq: ["ODOT402"] },
   { codigo: "ODOT505", nombre: "Preclínico Integrado", semestre: 6, prereq: ["ODOT301", "ODOT504"] },
-
   { codigo: "ODOT501", nombre: "Patología Dentomaxilar", semestre: 6, prereq: ["ODOT402", "BIOL254"] },
   { codigo: "ODOT503", nombre: "Cirugía Bucal Básica", semestre: 6, prereq: ["BIOL254", "ODOT402"] },
   { codigo: "ODOT504", nombre: "Fisiología Oral y Oclusión", semestre: 6, prereq: ["ODOT301"] },
@@ -47,7 +46,6 @@ const ramos = [
   { codigo: "CEGPC13", nombre: "Pensamiento Crítico", semestre: 7, prereq: ["CEGCT12"] },
 
   { codigo: "SPAB111", nombre: "Salud Pública II", semestre: 8, prereq: ["SPAB110", "ODOT501"] },
-
   { codigo: "ODOT701", nombre: "Cirugía Dentomaxilar", semestre: 8, prereq: ["FARM162", "ODOT501", "ODOT502", "ODOT503"] },
   { codigo: "ODOT702", nombre: "Odontología Restauradora", semestre: 8, prereq: ["ODOT502", "ODOT503", "ODOT505", "ODOT602"] },
   { codigo: "ODOT703", nombre: "Prótesis Dentomaxilar", semestre: 8, prereq: ["ODOT502", "ODOT503", "ODOT504", "ODOT505"] },
@@ -63,7 +61,6 @@ const ramos = [
   { codigo: "SPAB112", nombre: "Administración y Gestión en Salud", semestre: 10, prereq: ["SPAB111", "ODOT901"] },
   { codigo: "ODOT1001", nombre: "Medicina Legal", semestre: 10, prereq: ["ODOT901"] },
   { codigo: "CEGRS14", nombre: "Responsabilidad Social", semestre: 10, prereq: ["CEGPC13"] },
-
   { codigo: "ODOT902", nombre: "Cirugía y Traumatología Maxilofacial", semestre: 10, prereq: ["ODOT701", "ODOT706"] },
   { codigo: "ODOT903", nombre: "Clínica Integral Adulto y Odontogeriatría", semestre: 10, prereq: ["ODOT702", "ODOT703", "ODOT704", "ODOT705"] },
   { codigo: "ODOT904", nombre: "Odontopediatría", semestre: 10, prereq: ["ODOT701", "ODOT702", "ODOT704"] },
@@ -93,7 +90,7 @@ function crearBoton(ramo) {
   btn.className = "ramo";
   btn.dataset.codigo = ramo.codigo;
 
-  const requisitos = [...(ramo.prereq || []), ...(ramo.coreq || [])];
+  const requisitos = ramo.prereq || [];
   if (requisitos.length > 0) {
     btn.classList.add("locked");
   }
@@ -105,20 +102,6 @@ function crearBoton(ramo) {
     btn.classList.toggle("completado");
     estadoRamos[ramo.codigo] = !activo;
 
-    // Activar corequisitos del mismo semestre
-    if (ramo.coreq) {
-      ramo.coreq.forEach((coreCodigo) => {
-        const core = ramos.find(r => r.codigo === coreCodigo && r.semestre === ramo.semestre);
-        if (core) {
-          const coreBtn = document.querySelector(`button[data-codigo="${core.codigo}"]`);
-          if (coreBtn && !coreBtn.classList.contains("locked")) {
-            coreBtn.classList.toggle("completado", !activo);
-            estadoRamos[core.codigo] = !activo;
-          }
-        }
-      });
-    }
-
     actualizarDesbloqueo();
   });
 
@@ -129,22 +112,16 @@ function actualizarDesbloqueo() {
   document.querySelectorAll("button.ramo").forEach((btn) => {
     const codigo = btn.dataset.codigo;
     const ramo = ramos.find((r) => r.codigo === codigo);
-    const requisitos = [...(ramo.prereq || []), ...(ramo.coreq || [])];
+    const requisitos = ramo.prereq || [];
     const cumplidos = requisitos.every((r) => estadoRamos[r]);
 
     if (requisitos.length > 0) {
-      if (cumplidos) {
-        btn.classList.remove("locked");
-      } else {
-        btn.classList.add("locked");
-      }
+      btn.classList.toggle("locked", !cumplidos);
     }
   });
 }
 
 ramos.forEach((ramo) => {
-  if (ramo.semestre > 11) return; // eliminar cualquier sobrante
-
   const btn = crearBoton(ramo);
   estadoRamos[ramo.codigo] = false;
   semestres[ramo.semestre - 1].appendChild(btn);
