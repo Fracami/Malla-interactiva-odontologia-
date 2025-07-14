@@ -43,10 +43,6 @@ const asignaturas = {
 
   "Salud Pública II": { semestre: 8, prerrequisitos: ["Salud Pública I", "Patología Dentomaxilar"] },
 
-  "Farmacología Clínica": { semestre: 8, prerrequisitos: ["Farmacología II"] }, // si aplica
-
-  "Cirugía Bucal Básica": { semestre: 8, prerrequisitos: ["Patología Dentomaxilar"] }, // si aplica aquí
-
   "Medicina Oral": { semestre: 9, prerrequisitos: ["Patología Maxilofacial"] },
   "Metodología de la Investigación": { semestre: 9, prerrequisitos: ["Salud Pública II", "Odontología Restauradora"] },
   "Ética en la práctica Odontológica": { semestre: 9, prerrequisitos: ["Salud Pública II"] },
@@ -79,7 +75,6 @@ const asignaturas = {
   ] }
 };
 
-// Estado inicial
 const estadoAsignaturas = {};
 Object.keys(asignaturas).forEach(nombre => {
   estadoAsignaturas[nombre] = false;
@@ -115,7 +110,9 @@ function renderMalla() {
       ramo.className = "ramo";
       ramo.textContent = nombre;
 
-      if (!estadoAsignaturas[nombre] && !puedeDesbloquear(nombre)) {
+      if (estadoAsignaturas[nombre]) {
+        ramo.classList.add("active");
+      } else if (!puedeDesbloquear(nombre)) {
         ramo.classList.add("locked");
       }
 
