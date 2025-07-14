@@ -1,82 +1,56 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #fff0f6;
-  margin: 0;
-  padding: 0;
+  color: #333;
+  padding: 20px;
+  overflow-x: scroll;
 }
 
 h1 {
   text-align: center;
-  margin-top: 20px;
-  color: #d6336c;
+  color: #c2185b;
 }
 
 #malla {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
-  padding: 20px;
-  overflow-x: auto;
-  background-color: #fff0f6;
+  display: flex;
+  gap: 20px;
+  min-width: 2000px;
 }
 
 .semestre {
-  border: 1px solid #d6336c;
-  border-radius: 12px;
+  background-color: #fde0ef;
+  border: 2px solid #c2185b;
   padding: 10px;
-  background-color: #f8d7e4;
-  min-width: 200px;
-  box-shadow: 2px 2px 6px rgba(214, 51, 108, 0.3);
+  border-radius: 10px;
+  width: 220px;
+  min-height: 300px;
 }
 
 .semestre h3 {
   text-align: center;
-  color: #a8003e;
-  margin-bottom: 12px;
-  font-weight: 700;
+  color: #880e4f;
 }
 
-.ramo {
+button.ramo {
   display: block;
-  margin: 5px 0;
+  margin: 8px auto;
   padding: 10px;
-  background-color: #eec5d5; /* rosa inicial */
+  width: 100%;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
+  background-color: #f48fb1;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 0.9rem;
-  text-align: left;
-  transition: background-color 0.3s, text-decoration 0.3s;
-  box-shadow: inset 0 0 5px #d6336c;
 }
 
-.ramo:hover {
-  background-color: #f4a1bf;
-}
-
-.ramo.completado {
-  background-color: white; /* blanco cuando está aprobado */
-  text-decoration: line-through;
-  box-shadow: none;
-  color: #444;
-  cursor: default;
-}
-
-.ramo.locked {
-  background-color: #ddd;
+button.ramo.locked {
+  background-color: #ccc;
   cursor: not-allowed;
-  color: #888;
-  box-shadow: none;
 }
 
-@media (max-width: 900px) {
-  #malla {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  #malla {
-    grid-template-columns: repeat(3, 1fr);
-  }
+button.ramo.completado {
+  background-color: #fff;
+  color: #999;
+  text-decoration: line-through;
 }
