@@ -73,8 +73,7 @@ const asignaturas = {
     "Odontopediatría", "Ortodoncia y Ortopedia Dentomaxilar", "Medicina Legal",
     "Metodología de la Investigación", "Administración y Gestión en Salud", "Responsabilidad Social"
   ] }
-};
-
+  };  
 const estadoAsignaturas = {};
 Object.keys(asignaturas).forEach(nombre => {
   estadoAsignaturas[nombre] = false;
@@ -111,17 +110,14 @@ function renderMalla() {
       ramo.textContent = nombre;
 
       if (estadoAsignaturas[nombre]) {
-        ramo.classList.add("active");
+        ramo.classList.add("completado");
       } else if (!puedeDesbloquear(nombre)) {
         ramo.classList.add("locked");
       }
 
       ramo.onclick = () => {
-        if (estadoAsignaturas[nombre]) {
-          estadoAsignaturas[nombre] = false;
-        } else if (puedeDesbloquear(nombre)) {
-          estadoAsignaturas[nombre] = true;
-        }
+        if (!puedeDesbloquear(nombre)) return;
+        estadoAsignaturas[nombre] = !estadoAsignaturas[nombre];
         renderMalla();
       };
 
@@ -133,3 +129,4 @@ function renderMalla() {
 }
 
 renderMalla();
+
