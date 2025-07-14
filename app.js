@@ -119,7 +119,6 @@ const asignaturas = {
     prerrequisitos: ["Salud Pública I", "Patología Dentomaxilar"]
   },
 
-  // QUINTO AÑO
   "Medicina Oral": {
     semestre: 9,
     prerrequisitos: ["Patología Maxilofacial"]
