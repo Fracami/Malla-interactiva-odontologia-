@@ -6,13 +6,9 @@ const ramos = [
   { codigo: "ODOT101", nombre: "Introducción a la Odontología", semestre: 1 },
   { codigo: "CEGHC11", nombre: "Habilidades Comunicativas", semestre: 1 },
 
-  { codigo: "MORF200", nombre: "Anatomía Aplicada", semestre: 2, prereq: ["MORF100", "BIOL130"] },
-  { codigo: "QUIM118", nombre: "Química General e Inorgánica", semestre: 2 },
-  { codigo: "BIOL146", nombre: "Genética Molecular y Histología General", semestre: 2, prereq: ["BIOL130", "MORF100"] },
-  { codigo: "ODOT201", nombre: "Introducción a la Clínica", semestre: 2, prereq: ["ODOT101"] },
-  { codigo: "ING119", nombre: "Inglés I", semestre: 2 },
+  // OMITIDO SEMESTRE 2
 
-  // SEGUNDO AÑO
+  // SEGUNDO AÑO (desde semestre 3)
   { codigo: "BIOL164", nombre: "Bioquímica General", semestre: 3, prereq: ["QUIM118", "BIOL130"] },
   { codigo: "BIOL252", nombre: "Microbiología General", semestre: 3, prereq: ["BIOL146"] },
   { codigo: "ODOT302", nombre: "Patología General I", semestre: 3, prereq: ["BIOL146", "MORF201", "MORF200"] },
@@ -28,6 +24,7 @@ const ramos = [
   { codigo: "CEGCT12", nombre: "Razonamiento Científico y TICs", semestre: 4, prereq: ["CEGHC11"] },
   { codigo: "ING239", nombre: "Inglés III", semestre: 4, prereq: ["ING129"] },
   { codigo: "ODOT301", nombre: "Biomateriales Dentales", semestre: 4, prereq: ["CFIS100", "MORF200", "QUIM118"] },
+
   // TERCER AÑO
   { codigo: "FARM161", nombre: "Farmacología I", semestre: 5, prereq: ["ODOT401", "ODOT402"] },
   { codigo: "ING249", nombre: "Inglés IV", semestre: 5, prereq: ["ING239"] },
@@ -74,12 +71,16 @@ const ramos = [
 ];
 
 const mallaDiv = document.getElementById("malla");
-
 const totalSemestres = 11;
+
 const semestres = Array.from({ length: totalSemestres }, (_, i) => {
   const col = document.createElement("div");
   col.className = "semestre";
-  col.innerHTML = `<h3>${i + 1}° Semestre</h3>`;
+  if (i + 1 === 2) {
+    col.style.display = "none"; // OCULTAR 2° semestre
+  } else {
+    col.innerHTML = `<h3>${i + 1}° Semestre</h3>`;
+  }
   mallaDiv.appendChild(col);
   return col;
 });
@@ -93,7 +94,6 @@ function crearBoton(ramo) {
   btn.dataset.codigo = ramo.codigo;
 
   const requisitos = [...(ramo.prereq || []), ...(ramo.coreq || [])];
-
   if (requisitos.length > 0) {
     btn.classList.add("locked");
   }
@@ -101,12 +101,22 @@ function crearBoton(ramo) {
   btn.addEventListener("click", () => {
     if (btn.classList.contains("locked")) return;
 
-    if (btn.classList.contains("completado")) {
-      btn.classList.remove("completado");
-      estadoRamos[ramo.codigo] = false;
-    } else {
-      btn.classList.add("completado");
-      estadoRamos[ramo.codigo] = true;
+    const activo = btn.classList.contains("completado");
+    btn.classList.toggle("completado");
+    estadoRamos[ramo.codigo] = !activo;
+
+    // Activar o desactivar corequisitos del mismo semestre
+    if (ramo.coreq) {
+      ramo.coreq.forEach((coreCodigo) => {
+        const core = ramos.find(r => r.codigo === coreCodigo && r.semestre === ramo.semestre);
+        if (core) {
+          const coreBtn = document.querySelector(`button[data-codigo="${core.codigo}"]`);
+          if (coreBtn && !coreBtn.classList.contains("locked")) {
+            coreBtn.classList.toggle("completado", !activo);
+            estadoRamos[core.codigo] = !activo;
+          }
+        }
+      });
     }
 
     actualizarDesbloqueo();
@@ -133,6 +143,8 @@ function actualizarDesbloqueo() {
 }
 
 ramos.forEach((ramo) => {
+  if (ramo.semestre === 2 || ramo.semestre > 11) return; // OMITIR SEMESTRE 2 Y 12+
+
   const btn = crearBoton(ramo);
   estadoRamos[ramo.codigo] = false;
   semestres[ramo.semestre - 1].appendChild(btn);
