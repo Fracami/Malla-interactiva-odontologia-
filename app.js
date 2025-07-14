@@ -75,7 +75,7 @@ const ramos = [
 
 const mallaDiv = document.getElementById("malla");
 
-const totalSemestres = 12;
+const totalSemestres = 11;
 const semestres = Array.from({ length: totalSemestres }, (_, i) => {
   const col = document.createElement("div");
   col.className = "semestre";
