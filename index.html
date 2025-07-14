@@ -1,14 +1,60 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Malla Interactiva Odontología</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>Malla Interactiva Odontología</h1>
-  <div id="malla"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff0f6;
+  color: #333;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #c2185b;
+}
+
+#malla {
+  display: flex;
+  gap: 20px;
+  min-width: 2500px; /* para que quepa todo horizontal */
+}
+
+.semestre {
+  background-color: #fde0ef;
+  border: 2px solid #c2185b;
+  padding: 10px;
+  border-radius: 10px;
+  width: 220px;
+  min-height: 300px;
+  box-sizing: border-box;
+}
+
+.semestre h3 {
+  text-align: center;
+  color: #880e4f;
+}
+
+button.ramo {
+  display: block;
+  margin: 8px auto;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background-color: #f48fb1; /* rosado inicial */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.ramo.locked {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+button.ramo.completado {
+  background-color: white;
+  color: #999;
+  text-decoration: line-through;
+  cursor: pointer;
+}
