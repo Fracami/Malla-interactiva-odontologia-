@@ -91,66 +91,13 @@ const asignaturas = {
     "Ética en la Práctica Odontológica"
   ] },
 
-  // SEMESTRE 12 (aquí va el 12° semestre, ejemplo con asignaturas vacías, adapta según necesites)
+  // SEMESTRE 12 (ejemplo, reemplaza con lo que corresponda)
   "Asignatura 12A": { semestre: 12, prerrequisitos: ["Internado Clínico"] },
   "Asignatura 12B": { semestre: 12, prerrequisitos: ["Proyecto Integrado de Investigación"] },
 };
 
-// Estado guardado en localStorage para persistir asignaturas completadas
 let estadoAsignaturas = JSON.parse(localStorage.getItem("estadoAsignaturas")) || {};
 
-// Verifica si puede desbloquear una asignatura según sus prerrequisitos
 function puedeDesbloquear(nombre) {
   const datos = asignaturas[nombre];
   return (datos.prerrequisitos || []).every(pr => estadoAsignaturas[pr]);
-}
-
-// Crea el botón para cada asignatura
-function crearBoton(nombre, datos) {
-  const boton = document.createElement("button");
-  boton.textContent = nombre;
-  boton.className = "ramo";
-
-  if (estadoAsignaturas[nombre]) {
-    boton.classList.add("completado");
-  } else if (!puedeDesbloquear(nombre)) {
-    boton.classList.add("locked");
-  }
-
-  boton.onclick = () => {
-    if (puedeDesbloquear(nombre) || estadoAsignaturas[nombre]) {
-      estadoAsignaturas[nombre] = !estadoAsignaturas[nombre];
-      localStorage.setItem("estadoAsignaturas", JSON.stringify(estadoAsignaturas));
-      renderMalla();
-    }
-  };
-
-  return boton;
-}
-
-// Renderiza la malla completa por semestre y asignaturas
-function renderMalla() {
-  const container = document.getElementById("malla");
-  container.innerHTML = "";
-
-  // Crear columnas para cada semestre
-  for (let i = 1; i <= 12; i++) {
-    const col = document.createElement("div");
-    col.className = "semestre";
-    col.id = `semestre-${i}`;
-    col.innerHTML = `<h3>${i}° Semestre</h3>`;
-    container.appendChild(col);
-  }
-
-  // Agregar los botones de asignaturas en su semestre correspondiente
-  for (const [nombre, datos] of Object.entries(asignaturas)) {
-    const col = document.getElementById(`semestre-${datos.semestre}`);
-    if (col) {
-      const boton = crearBoton(nombre, datos);
-      col.appendChild(boton);
-    }
-  }
-}
-
-// Inicia la visualización
-renderMalla();
