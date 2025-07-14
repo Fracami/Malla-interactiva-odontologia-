@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
   const malla = document.getElementById("malla");
 
   const asignaturas = {
