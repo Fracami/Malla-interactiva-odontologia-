@@ -1,62 +1,50 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   background-color: #fff0f5;
-  margin: 0;
+  color: #333;
   padding: 20px;
+  margin: 0;
 }
 
 h1 {
   text-align: center;
-  color: #c71585;
+  color: #b30059;
+}
+
+.semestre {
   margin-bottom: 30px;
 }
 
-#contenedor-malla {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 20px;
-  padding-bottom: 20px;
-}
-
-.semestre-columna {
-  min-width: 200px;
-  background-color: #fff;
-  border-radius: 12px;
+.semestre h3 {
+  background-color: #ffe6f0;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(199, 21, 133, 0.2);
-}
-
-.semestre-columna h2 {
-  text-align: center;
-  color: #c71585;
+  border-left: 5px solid #ff66a3;
   margin-bottom: 10px;
 }
 
 .ramo {
-  padding: 8px;
-  margin: 6px 0;
-  border: 1px solid #aaa;
-  background-color: #f9b5d0; /* Rosado por defecto */
-  color: #333;
+  background-color: #ffb3d9;
+  border: none;
   border-radius: 8px;
+  margin: 5px;
+  padding: 10px;
+  color: #333;
   cursor: pointer;
   transition: 0.3s;
-  text-align: center;
-  font-size: 14px;
 }
 
-/* Ramos bloqueados (no clickeables aún) */
-.ramo.locked {
-  background-color: #ddd;
-  color: #aaa;
-  cursor: not-allowed;
+.ramo:hover {
+  opacity: 0.85;
 }
 
-/* Ramos completados: blanco con tachado */
 .ramo.completado {
   background-color: white;
-  color: #777;
+  color: #999;
   text-decoration: line-through;
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ramo.locked {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
 }
