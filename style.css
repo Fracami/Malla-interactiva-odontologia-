@@ -3,7 +3,7 @@ body {
   background-color: #fff0f6;
   color: #333;
   padding: 20px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 h1 {
@@ -24,6 +24,7 @@ h1 {
   border-radius: 10px;
   width: 220px;
   min-height: 300px;
+  box-sizing: border-box;
 }
 
 .semestre h3 {
@@ -39,7 +40,7 @@ button.ramo {
   border: none;
   border-radius: 8px;
   background-color: #f48fb1;
-  color: #fff;
+  color: white;
   font-weight: bold;
   cursor: pointer;
 }
@@ -50,7 +51,7 @@ button.ramo.locked {
 }
 
 button.ramo.completado {
-  background-color: #fff;
+  background-color: white;
   color: #999;
   text-decoration: line-through;
 }
